@@ -14,9 +14,9 @@ function choose () {
 function victoryMessage (playerInput, computerInput, victory) {
   let message = ''
   if (victory === 'player') {
-    message = 'You picked ' + playerInput + ', and I picked ' + computerInput + '! That means I won the match!'
-  } else if (victory === 'computer') {
     message = 'You picked ' + playerInput + ', and I picked ' + computerInput + '! That means you won the match!'
+  } else if (victory === 'computer') {
+    message = 'You picked ' + playerInput + ', and I picked ' + computerInput + '! That means I won the match!'
   } else {
     message = 'You and I both picked ' + playerInput + '! That means we tied! Let us try again.'
   }
@@ -28,12 +28,15 @@ function game () {
   if (Consent === true) {
     let HumanWin = 0
     let ComputerWin = 0
+    let NoWin = 0
     let Answer = ''
     let GeneratedAnswer = ''
-    while (HumanWin < 2 && ComputerWin < 2) {
+    while ((HumanWin < 2) && (ComputerWin < 2) && (HumanWin + ComputerWin + NoWin < 3)) {
       Answer = window.prompt('Rock, paper, scissors, shoot!')
-      Answer = Answer.toLowerCase()
-      Answer = Answer.trim()
+      if (Answer != null) {
+        Answer = Answer.toLowerCase()
+        Answer = Answer.trim()
+      }
       if (Answer === 'rock') {
         GeneratedAnswer = choose()
         if (GeneratedAnswer === 'paper') {
@@ -44,6 +47,7 @@ function game () {
           HumanWin = HumanWin + 1
         } else {
           victoryMessage(Answer, GeneratedAnswer, 'tie')
+          NoWin = NoWin + 1
         }
       } else if (Answer === 'paper') {
         GeneratedAnswer = choose()
@@ -55,6 +59,7 @@ function game () {
           HumanWin = HumanWin + 1
         } else {
           victoryMessage(Answer, GeneratedAnswer, 'tie')
+          NoWin = NoWin + 1
         }
       } else if (Answer === 'scissors' || Answer === 'scissor') {
         GeneratedAnswer = choose()
@@ -66,6 +71,7 @@ function game () {
           HumanWin = HumanWin + 1
         } else {
           victoryMessage(Answer, GeneratedAnswer, 'tie')
+          NoWin = NoWin + 1
         }
       } else {
         window.alert('That isn\'t an option! That means the computer wins this round.')
